@@ -34,21 +34,21 @@ return {
       desc = 'Debug: Start/Continue',
     },
     {
-      '<F1>',
+      '<F9>',
       function()
         require('dap').step_into()
       end,
       desc = 'Debug: Step Into',
     },
     {
-      '<F2>',
+      '<F10>',
       function()
         require('dap').step_over()
       end,
       desc = 'Debug: Step Over',
     },
     {
-      '<F3>',
+      '<F11>',
       function()
         require('dap').step_out()
       end,
@@ -67,6 +67,14 @@ return {
         require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ')
       end,
       desc = 'Debug: Set Breakpoint',
+    },
+    {
+      '<F6>',
+      function()
+        require('dap').terminate()
+        require('dapui').close()
+      end,
+      desc = 'Debug: Stop Session',
     },
     -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
     {
