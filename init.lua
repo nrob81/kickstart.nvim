@@ -6,8 +6,32 @@ vim.opt_local.smartindent = true
 vim.g.PHP_autoformatcomment = 1
 vim.g.PHP_outdentphpescape = 0
 
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+
+-- Create an autocommand specifically for PHP files
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "php",
+    callback = function()
+        -- Enable and configure folding for PHP files
+        vim.opt_local.foldmethod = "expr"
+        vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+        vim.opt_local.foldenable = true
+        vim.opt_local.foldlevel = 1        -- Skip first level folds (class level)
+        vim.opt_local.foldlevelstart = 1   -- Start with first level unfolded
+        vim.opt_local.foldminlines = 3
+        vim.opt_local.foldnestmax = 2      -- Only fold up to level 2
+
+        vim.bo.formatoptions = vim.bo.formatoptions .. 'r' -- Continue comments when pressing ENTER
+        vim.bo.formatoptions = vim.bo.formatoptions .. 'o' -- Continue comments when using o or O
+        vim.bo.comments = 's1:/*,mb:*,ex:*/,://,:#' -- Define comment markers
+        vim.bo.commentstring = '// %s' -- Define default comment string
+
+        -- Set comment continuation
+        vim.opt_local.comments = 's1:/*,mb:*,ex:*/,://'
+        vim.opt_local.formatoptions:append('ro')
+    end
+})
+
+
 --
 -- Set <space> as the leader key
 -- See `:help mapleader`
@@ -553,6 +577,7 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
+        javascript = {},
         -- clangd = {},
         -- gopls = {},
         -- pyright = {},
@@ -794,7 +819,7 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'php', 'query', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'javascript', 'typescript', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'php', 'query', 'vim', 'vimdoc' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -802,7 +827,7 @@ require('lazy').setup({
         -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
         --  If you are experiencing weird indenting issues, add the language to
         --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby' },
+        additional_vim_regex_highlighting = { 'ruby', 'php' },
       },
       indent = { enable = true, disable = { 'ruby' } },
     },

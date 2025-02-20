@@ -34,21 +34,21 @@ return {
       desc = 'Debug: Start/Continue',
     },
     {
-      '<F9>',
+      '<F3>',
       function()
         require('dap').step_into()
       end,
       desc = 'Debug: Step Into',
     },
     {
-      '<F10>',
+      '<F2>',
       function()
         require('dap').step_over()
       end,
       desc = 'Debug: Step Over',
     },
     {
-      '<F11>',
+      '<F4>',
       function()
         require('dap').step_out()
       end,
@@ -118,12 +118,22 @@ return {
           pause = '⏸',
           play = '▶',
           step_into = '⏎',
-          step_over = '⏭',
-          step_out = '⏮',
-          step_back = 'b',
+          step_over = '⇥',
+          step_out = '⇤',
+          step_back = '←',
           run_last = '▶▶',
           terminate = '⏹',
           disconnect = '⏏',
+          breakpoint = '●',
+          breakpoint_rejected = '○',
+          breakpoint_condition = '◆',
+          stack_frame = '□',
+          stack_current = '▣',
+          watch = '👁',
+          console = '⚡',
+          restart = '↻',
+          continue = '→',
+          dead = '×',
         },
       },
     }

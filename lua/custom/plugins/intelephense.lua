@@ -68,7 +68,7 @@ return {
             'zlib',
           },
           environment = {
-            phpVersion = '8.2',
+            phpVersion = '8.3',
           },
           files = {
             maxSize = 5000000,
