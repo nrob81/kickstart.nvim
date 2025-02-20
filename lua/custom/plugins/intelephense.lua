@@ -1,13 +1,16 @@
 -- lua/custom/plugins/intelephense.lua
 return {
   'neovim/nvim-lspconfig',
-  event = { 'BufReadPre', 'BufNewFile' },
+  ft = { 'php', 'phtml', 'inc', 'module', 'theme' },
   cmd = { 'LspInfo', 'LspInstall', 'LspUninstall' },
   config = function()
     local lspconfig = require 'lspconfig'
     local telescope_builtin = require 'telescope.builtin'
 
     lspconfig.intelephense.setup {
+      -- Specify filetypes for Intelephense
+      filetypes = { 'php', 'phtml', 'inc', 'module', 'theme' },
+      
       settings = {
         intelephense = {
           stubs = {
