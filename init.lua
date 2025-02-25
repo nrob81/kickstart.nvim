@@ -6,6 +6,8 @@ vim.opt_local.smartindent = true
 vim.g.PHP_autoformatcomment = 1
 vim.g.PHP_outdentphpescape = 0
 
+-- Preserve yanked text when pasting in visual mode
+vim.keymap.set('x', 'p', '"_dP', { desc = 'Paste without yanking' })
 
 -- Create an autocommand specifically for PHP files
 vim.api.nvim_create_autocmd("FileType", {
